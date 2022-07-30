@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(219, 150, 0);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        @keyframes example1 {
+            0% {
+                transform: translateY(0px);
+            }
+
+            20% {
+                transform: translateY(10px);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(+10px);
+            }
+
+            80% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes example2 {
+            0% {
+                transform: translateY(0px);
+            }
+
+            20% {
+                transform: translateY(-10px);
+            }
+
+            40% {
+                transform: translateY(+10px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+
+            80% {
+                transform: translateY(+10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* The element to apply the animation to */
+        .result1ani {
+            animation-name: example1;
+            animation-duration: 2s;
+        }
+
+        .result2ani {
+            animation-name: example2;
+            animation-duration: 2s;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            height: 95vh;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        button {
+            margin-top: 30px;
+            background: #FBCA1F;
+            font-family: inherit;
+            padding: 0.6em 1.3em;
+            font-weight: 900;
+            font-size: 18px;
+            border: 3px solid black;
+            border-radius: 0.4em;
+            box-shadow: 0.1em 0.1em;
+        }
+
+        button:hover {
+            transform: translate(-0.05em, -0.05em);
+            box-shadow: 0.15em 0.15em;
+        }
+
+        button:active {
+            transform: translate(0.05em, 0.05em);
+            box-shadow: 0.05em 0.05em;
+        }
+
+        .players {
+            display: flex;
+            width: 300px;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .player1 .player2 {
+            text-align: center;
+        }
+
+        .players #score1 {
+            text-align: center;
+            font-size: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .players #score2 {
+            text-align: center;
+            font-size: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .box {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 80px;
+            justify-content: center;
+            align-items: center;
+            border: 0px;
+            box-shadow: 1px 1px 100px rgba(0, 0, 0, 0.219);
+            border-radius: 30px;
+        }
+
+        #dice img {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="box">
+            <div id="dice"><img style="width:200px;" src="./Dice_Images/dice_1.png" id="result1">
+                <img style="width:200px;" src="./Dice_Images/dice_1.png" id="result2">
+            </div>
+            <button id="button" onclick="round()">Roll the die</button><br><br>
+            <div class="players">
+                <div class="player1">
+                    <p id="name1">Player 1</p>
+                    <p id="score1">0</p>
+                </div>
+                <div class="player2">
+                    <p id="name2">Player 2</p>
+                    <p id="score2">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let score1 = 0;
+        let score2 = 0;
+        let status = "a"
+        let val1 = 0
+        let val2 = 0
+        let current = "player1"
+        function round() {
+            if (status == "b") {
+                console.log("Wait")
+                return
+            }
+            status = "b"
+
+            var delayInMilliseconds = 1000; //1 second
+
+            for (let i = 0; i < 10; i += 1) {
+                setTimeout(function () {
+                    if (current == "player1") {
+                        document.getElementById("name1").style.color = "red"
+                        document.getElementById("name2").style.color = "black"
+                    } else {
+                        document.getElementById("name1").style.color = "black"
+                        document.getElementById("name2").style.color = "red"
+                    }
+                    val1 = Math.floor(Math.random() * 6) + 1
+                    val2 = Math.floor(Math.random() * 6) + 1
+                    console.log(val1 + " " + val2)
+                    document.getElementById("result1").classList.add("result1ani")
+                    document.getElementById("result2").classList.add("result2ani")
+
+                    if (val1 == 1) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_1.png"
+                    }
+                    else if (val1 == 2) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_2.png"
+                    }
+                    else if (val1 == 3) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_3.png"
+                    }
+                    else if (val1 == 4) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_4.png"
+                    }
+                    else if (val1 == 5) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_5.png"
+                    }
+                    else if (val1 == 6) {
+                        document.getElementById("result1").src = "./Dice_Images/dice_6.png"
+                    }
+                    if (val2 == 1) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_1.png"
+                    }
+                    else if (val2 == 2) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_2.png"
+                    }
+                    else if (val2 == 3) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_3.png"
+                    }
+                    else if (val2 == 4) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_4.png"
+                    }
+                    else if (val2 == 5) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_5.png"
+                    }
+                    else if (val2 == 6) {
+                        document.getElementById("result2").src = "./Dice_Images/dice_6.png"
+                    }
+                    //console.log(i)
+                    if (i == 9) {
+                        if (current == "player1") {
+                            if ((val1 == val2) && (val1 != 1)) {
+                                score1 = score1 + val1 + val2
+                                document.getElementById("score1").innerHTML = score1;
+                                current = "player1"
+                            } else if ((val1 == val2) && (val1 == 1)) {
+                                score1 = 0;
+                                document.getElementById("score1").innerHTML = score1;
+                                current = "player2"
+                            }
+                            else {
+                                score1 = score1 + val1 + val2
+                                document.getElementById("score1").innerHTML = score1;
+                                current = "player2"
+                            }
+
+                        } else {
+                            if ((val1 == val2) && (val1 != 1)) {
+                                score2 = score2 + val1 + val2
+                                document.getElementById("score2").innerHTML = score2;
+                                current = "player2"
+                            } else if ((val1 == val2) && (val1 == 1)) {
+                                score2 = 0;
+                                document.getElementById("score2").innerHTML = score2;
+                                current = "player1"
+                            }
+                            else {
+                                score2 = score2 + val1 + val2
+                                document.getElementById("score2").innerHTML = score2;
+                                current = "player1"
+                            }
+
+                        } setTimeout(function () {
+                            if (score1 >= 100) {
+                                alert("Player 1 Won")
+                                document.getElementById("button").disabled = true
+                                document.getElementById("button").innerHTML = "Player 1 Won. Refresh to Restart"
+
+                            }
+                            else if (score2 >= 100) {
+                                alert("Player 2 Won")
+                                document.getElementById("button").disabled = true
+                                document.getElementById("button").innerHTML = "Player 2 Won. Refresh to Restart"
+
+
+                            }
+
+                        }, 1000)
+
+                    }
+                    setTimeout(function () {
+                        document.getElementById("result1").classList.remove("result1ani")
+                        document.getElementById("result2").classList.remove("result2ani")
+                        status = "a"
+                    }, 2000)
+                }, delayInMilliseconds);
+
+                delayInMilliseconds += 200;
+            }
+            //console.log(score1)
+            console.log(current)
+
+        }
+    </script>
+</body>
+
+</html>
